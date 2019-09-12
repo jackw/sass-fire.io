@@ -1,52 +1,46 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-
+import { Global, css } from "@emotion/core"
+import styled from "@emotion/styled"
+import { ThemeProvider } from "mineral-ui/themes"
+import Flex, { FlexItem } from "mineral-ui/Flex"
+import SEO from "./seo"
 import Header from "./header"
-import "./layout.css"
+import Footer from "./footer"
+import Container from "./container"
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
-  return (
-    <>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0px 1.0875rem 1.45rem`,
-          paddingTop: 0,
-        }}
+export default ({ title, children }) => (
+  <ThemeProvider>
+    <React.Fragment>
+      <SEO title={title} />
+      <Global
+        styles={css`
+          html,
+          body,
+          #gatsby-focus-wrapper {
+            height: 100%;
+          }
+          body,
+          pre {
+            margin: 0;
+          }
+        `}
+      />
+      <Flex
+        direction="column"
+        css={css`
+          height: 100%;
+        `}
       >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export default Layout
+        <FlexItem>
+          <Header />
+        </FlexItem>
+        <Container as={FlexItem} grow={1}>
+          {children}
+        </Container>
+        <FlexItem>
+          <Footer />
+        </FlexItem>
+      </Flex>
+    </React.Fragment>
+  </ThemeProvider>
+)

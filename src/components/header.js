@@ -1,42 +1,18 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
 import React from "react"
+import { PrimaryNav, NavItem } from "mineral-ui/Navigation"
+import { Link } from "gatsby"
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
+const Header = () => (
+  <PrimaryNav maxItemWidth="15em" align="start" key="start">
+    <NavItem as={Link} to="/">{`🔥 Sass-fire v0.0.0`}</NavItem>
+    <NavItem as={Link} to="/documentation">
+      Docs
+    </NavItem>
+    <NavItem as={Link} to="/cook-book">
+      Cookbook
+    </NavItem>
+    <NavItem href="https://github.com/jackw/sass-fire">GitHub</NavItem>
+  </PrimaryNav>
 )
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
-}
 
 export default Header
