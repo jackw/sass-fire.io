@@ -1,9 +1,10 @@
 import React from "react"
 import Container from "./container"
+import BuildTime from "./BuildTime"
 
 const Footer = () => (
-  <Container>
-    <p>The Footer</p>
+  <Container css={{ textAlign: "center" }}>
+    <BuildTime />
   </Container>
 )
 

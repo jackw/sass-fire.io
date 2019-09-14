@@ -1,12 +1,28 @@
 import React from "react"
-import { StaticQuery, graphql } from "gatsby"
-import { Text, StartEnd, Link, Box } from "mineral-ui"
-import Highlight, { defaultProps } from "prism-react-renderer"
-import theme from "prism-react-renderer/themes/github"
+import { graphql } from "gatsby"
+import styled from "@emotion/styled"
 import Layout from "../components/layout"
+import DocBlock from "../components/DocBlock"
+import Sidebar from "../components/sidebar"
 
-const docsQuery = graphql`
-  query SassDocQuery {
+const SideBarWrapper = styled.div`
+  background-color: white;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  overflow-y: auto;
+  top: 56px;
+  width: 20%;
+`
+
+const DocsWrapper = styled.div`
+  background-color: ${props => props.theme.backgroundColor_theme_selected};
+  margin-left: 20%;
+  margin-top: 56px;
+`
+
+export const query = graphql`
+  query {
     allSassdocJson {
       nodes {
         file {
@@ -49,81 +65,26 @@ const docsQuery = graphql`
   }
 `
 
-const codeWrapper = (code, parameter, name, type) => {
-  const parameterz =
-    parameter !== null
-      ? parameter.reduce((acc, val) => [...acc, `$${val.name}`], []).join(", ")
-      : ""
-
-  return `
-@${type} ${name}(${parameterz}) {
-  ${code}
-}`.trim()
-}
-
-const SassCodeHighlight = ({ code }) => {
-  return (
-    <Highlight {...defaultProps} theme={theme} code={code} language="scss">
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={style}>
-          {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
-        </pre>
-      )}
-    </Highlight>
-  )
-}
-
-const DocBlock = ({ sassDocNode }) => {
-  return (
-    <Box marginBottom="xl">
-      <Text>{sassDocNode.context.type}</Text>
-      <StartEnd alignItems="center" marginBottom="sm">
-        <Link href={`#${sassDocNode.context.name}`}>
-          <Text as="h3" id={sassDocNode.context.name} noMargins>
-            {sassDocNode.context.name}
-          </Text>
-        </Link>
-        <Link
-          href={`https://github.com/jackw/sass-fire/blob/master/src/${sassDocNode.file.name}`}
-        >
-          View Source
-        </Link>
-      </StartEnd>
-      <Text>{sassDocNode.description}</Text>
-      {sassDocNode.example !== null &&
-        sassDocNode.example.map(example => (
-          <Box
-            padding="md"
-            css={{ backgroundColor: theme.plain.backgroundColor }}
-          >
-            <SassCodeHighlight code={example.code} />
-          </Box>
-        ))}
-    </Box>
-  )
-}
-
-const SecondPage = () => (
+const Documentation = ({ data }) => (
   <Layout title="Documentation">
-    <StaticQuery
-      query={docsQuery}
-      render={data => {
-        return (
-          <div>
-            {data.allSassdocJson.nodes.map(sassDocNode => (
-              <DocBlock sassDocNode={sassDocNode} key={sassDocNode.id} />
-            ))}
-          </div>
-        )
-      }}
-    />
+    <SideBarWrapper>
+      <Sidebar />
+    </SideBarWrapper>
+    <DocsWrapper>
+      {data.allSassdocJson.nodes.map((sassDocNode, i) => (
+        <>
+          <div
+            css={theme => ({
+              paddingBottom: i !== 0 && theme.space_inline_xl,
+              paddingTop: theme.space_inline_xl,
+            })}
+            id={sassDocNode.context.name.toLowerCase()}
+          />
+          <DocBlock sassDocNode={sassDocNode} key={sassDocNode.id} />
+        </>
+      ))}
+    </DocsWrapper>
   </Layout>
 )
 
-export default SecondPage
+export default Documentation

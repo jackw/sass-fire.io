@@ -1,15 +1,19 @@
 import React from "react"
 import { Global, css } from "@emotion/core"
-import styled from "@emotion/styled"
-import { ThemeProvider } from "mineral-ui/themes"
+import { createTheme, ThemeProvider } from "mineral-ui/themes"
 import Flex, { FlexItem } from "mineral-ui/Flex"
 import SEO from "./seo"
 import Header from "./header"
 import Footer from "./footer"
-import Container from "./container"
+
+const myTheme = createTheme({
+  overrides: {
+    PrimaryNav_paddingHorizontal: '0.25em',
+  },
+})
 
 export default ({ title, children }) => (
-  <ThemeProvider>
+  <ThemeProvider theme={myTheme}>
     <React.Fragment>
       <SEO title={title} />
       <Global
@@ -34,9 +38,7 @@ export default ({ title, children }) => (
         <FlexItem>
           <Header />
         </FlexItem>
-        <Container as={FlexItem} grow={1}>
-          {children}
-        </Container>
+        {children}
         <FlexItem>
           <Footer />
         </FlexItem>
