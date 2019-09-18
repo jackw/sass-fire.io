@@ -1,6 +1,5 @@
 kind: pipeline
-type: docker
-name: default
+name: sass-fire.io
 
 steps:
   - name: install dependencies
