@@ -29,7 +29,7 @@ const Gridded = styled.div`
 
 export default ({ title, children, hasSidebar }) => (
   <ThemeProvider theme={myTheme}>
-    <React.Fragment>
+    <>
       <SEO title={title} />
       <Global
         styles={css`

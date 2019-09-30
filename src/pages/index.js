@@ -32,15 +32,22 @@ const Code = ({ children }) => (
 
 export default () => (
   <Layout title="🔥">
-    <Container as={FlexItem} grow={1}>
+    <Container
+      as={FlexItem}
+      grow={1}
+      css={css`
+        margin-top: 56px;
+      `}
+    >
       <Flex
         alignItems="center"
         justifyContent="center"
         direction="column"
-        css={css`
-          height: calc(50vh - 56px);
-          margin: 50px 0;
-        `}
+        css={theme => ({
+          minHeight: "calc(50vh - 56px)",
+          marginTop: theme.space_stack_xxl,
+          marginBottom: theme.space_stack_xxl,
+        })}
       >
         <Box as="div" marginBottom="sm">
           <Flex
