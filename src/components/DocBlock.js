@@ -4,6 +4,21 @@ import theme from "prism-react-renderer/themes/vsDark"
 import SassCodeHighlight from "./SassCodeHighlight"
 import { Badge } from "./sidebar"
 
+const See = ({ data }) => {
+  return (
+    <dl>
+      <Text as="dt" css={theme => ({ marginBottom: theme.space_inline_md })}>
+        See:
+      </Text>
+      {data.map((see, i) => (
+        <dd key={`${see.context.name}-${i}`}>
+          <Link href={`#${see.context.name}`}>{`@${see.context.name}`}</Link>
+        </dd>
+      ))}
+    </dl>
+  )
+}
+
 const DocBlock = ({ sassDocNode }) => {
   return (
     <Box
@@ -60,6 +75,7 @@ const DocBlock = ({ sassDocNode }) => {
             />
           </>
         )}
+        {sassDocNode.see !== null && <See data={sassDocNode.see} />}
       </Box>
       {sassDocNode.example !== null &&
         sassDocNode.example.map((example, i) => (

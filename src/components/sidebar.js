@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import styled from "@emotion/styled"
-import { Menu, Text, StartEnd, Box } from "mineral-ui"
+import { Menu, Text, StartEnd, Box, TextInput } from "mineral-ui"
 import { groupData } from "../utils"
 import FlexItem from "mineral-ui/Flex/FlexItem"
 
@@ -46,8 +46,19 @@ const MenuItem = styled(Box)(({ theme }) => ({
 const Sidebar = () => {
   const data = useStaticQuery(query)
   const menuData = groupData(data.allSassdocJson.nodes)
+
   return (
     <Menu>
+      <div
+        css={theme => ({
+          margin: theme.space_inline_sm,
+        })}
+      >
+        <TextInput
+          placeholder="Search here..."
+          onChange={e => console.log(e.target.value)}
+        />
+      </div>
       {menuData.map(menuGroup =>
         menuGroup.menuItems.map(menuItem => (
           <MenuItem
