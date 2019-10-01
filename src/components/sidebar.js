@@ -1,23 +1,9 @@
-import React from "react"
+import React, { useState } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import styled from "@emotion/styled"
-import { Menu, Text, StartEnd, Box } from "mineral-ui"
+import { Menu, Text, StartEnd, Box, TextInput } from "mineral-ui"
 import { groupData } from "../utils"
 import FlexItem from "mineral-ui/Flex/FlexItem"
-
-const query = graphql`
-  query {
-    allSassdocJson {
-      nodes {
-        group
-        context {
-          name
-        }
-        id
-      }
-    }
-  }
-`
 
 export const Badge = styled(Text)(({ theme }) => ({
   backgroundColor: theme.backgroundColor_theme_selectedActive,
@@ -43,34 +29,72 @@ const MenuItem = styled(Box)(({ theme }) => ({
   },
 }))
 
+const query = graphql`
+  query {
+    allSassdocJson(sort: {fields: context___name, order: ASC}) {
+      nodes {
+        group
+        context {
+          name
+        }
+        id
+      }
+    }
+  }
+`
+
 const Sidebar = () => {
   const data = useStaticQuery(query)
-  const menuData = groupData(data.allSassdocJson.nodes)
+  const allItems = data.allSassdocJson.nodes
+  const [items, setItems] = useState(data.allSassdocJson.nodes)
+
+  const filterResults = e => {
+    const filtered = allItems.filter(item => {
+      if (e.target.value.trim() == "") {
+        return allItems
+      }
+      if (e.target.value === item.group[0]) {
+        return item;
+      }
+
+      if (item.context.name.indexOf(e.target.value) !== -1) {
+        return item;
+      }
+
+    })
+    setItems(filtered)
+  }
+
   return (
     <Menu>
-      {menuData.map(menuGroup =>
-        menuGroup.menuItems.map(menuItem => (
-          <MenuItem
-            padding="md"
-            as="a"
-            href={menuItem.href}
-            key={menuItem.href}
-          >
-            <StartEnd>
-              <FlexItem>
-                <Text noMargins fontWeight="bold">
-                  {menuItem.name}
-                </Text>
-              </FlexItem>
-              <FlexItem>
-                <Badge as="small" noMargins>
-                  {menuGroup.groupTitle}
-                </Badge>
-              </FlexItem>
-            </StartEnd>
-          </MenuItem>
-        ))
-      )}
+      <div
+        css={theme => ({
+          margin: theme.space_inline_sm,
+        })}
+      >
+        <TextInput placeholder="Search here..." onChange={filterResults} />
+      </div>
+      {items.map(menuItem => (
+        <MenuItem
+          padding="md"
+          as="a"
+          href={`#${menuItem.context.name.toLowerCase()}`}
+          key={menuItem.id}
+        >
+          <StartEnd>
+            <FlexItem>
+              <Text noMargins fontWeight="bold">
+                {menuItem.context.name}
+              </Text>
+            </FlexItem>
+            <FlexItem>
+              <Badge as="small" noMargins>
+                {menuItem.group}
+              </Badge>
+            </FlexItem>
+          </StartEnd>
+        </MenuItem>
+      ))}
     </Menu>
   )
 }

@@ -6,7 +6,7 @@ const BuildTime = () => {
   const data = useStaticQuery(query)
 
   return (
-    <Text>
+    <Text noMargins>
       Last built with{" "}
       <span role="img" aria-label="love">
         ❤️
