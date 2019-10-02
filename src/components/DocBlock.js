@@ -11,7 +11,7 @@ const See = ({ data }) => {
         See:
       </Text>
       {data.map((see, i) => (
-        <dd key={`${see.context.name}-${i}`}>
+        <dd css={{ marginLeft: 0 }} key={`${see.context.name}-${i}`}>
           <Link href={`#${see.context.name}`}>{`@${see.context.name}`}</Link>
         </dd>
       ))}
@@ -25,12 +25,11 @@ const DocBlock = ({ sassDocNode }) => {
       css={theme => ({
         backgroundColor: "white",
         boxShadow: theme.boxShadow_2,
+        margin: `0 ${theme.space_inline_md}`,
       })}
-      marginLeft="xl"
-      marginRight="xl"
     >
       <Box padding="lg">
-        <StartEnd alignItems="center" marginBottom="sm">
+        <StartEnd alignItems="center" marginBottom="md">
           <Link href={`#${sassDocNode.context.name}`}>
             <Text as="h2" noMargins>
               {sassDocNode.context.name}
@@ -82,7 +81,10 @@ const DocBlock = ({ sassDocNode }) => {
           <Box
             key={i}
             padding="lg"
-            css={{ backgroundColor: theme.plain.backgroundColor }}
+            css={{
+              backgroundColor: theme.plain.backgroundColor,
+              overflow: "auto",
+            }}
           >
             <SassCodeHighlight code={example.code} />
           </Box>

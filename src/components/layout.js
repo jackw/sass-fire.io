@@ -1,18 +1,33 @@
 import React from "react"
 import { Global, css } from "@emotion/core"
+import styled from "@emotion/styled"
 import { createTheme, ThemeProvider } from "mineral-ui/themes"
-import Flex, { FlexItem } from "mineral-ui/Flex"
 import SEO from "./seo"
 import Header from "./header"
-import Footer from "./footer"
+import Sidebar from "./sidebar"
 
 const myTheme = createTheme({
   overrides: {
-    PrimaryNav_paddingHorizontal: '0.25em',
+    PrimaryNav_paddingHorizontal: "0.25em",
   },
 })
 
-export default ({ title, children }) => (
+const Gridded = styled.div`
+  display: grid;
+  grid-template-areas: ${props =>
+    props.hasSidebar ? `"header" "sidebar" "content"` : `"header" "content"`};
+  height: 100%;
+  @media (min-width: 768px) {
+    grid-template-columns: ${props =>
+      props.hasSidebar && "25% 1fr"};
+    grid-template-areas: ${props =>
+      props.hasSidebar
+        ? `"header header" "sidebar content"`
+        : `"header" "content"`};
+  }
+`
+
+export default ({ title, children, hasSidebar }) => (
   <ThemeProvider theme={myTheme}>
     <React.Fragment>
       <SEO title={title} />
@@ -29,20 +44,38 @@ export default ({ title, children }) => (
           }
         `}
       />
-      <Flex
-        direction="column"
-        css={css`
-          height: 100%;
-        `}
-      >
-        <FlexItem>
+      <Gridded hasSidebar={hasSidebar}>
+        <div css={{ gridArea: "header" }}>
           <Header />
-        </FlexItem>
-        {children}
-        <FlexItem>
-          <Footer />
-        </FlexItem>
-      </Flex>
+        </div>
+        {hasSidebar && (
+          <div
+            css={{
+              gridArea: "sidebar",
+              maxWidth: "100vw",
+              "@media(min-width: 768px)": {
+                maxHeight: "calc(100vh - 56px)",
+              },
+            }}
+          >
+            <Sidebar />
+          </div>
+        )}
+        <div
+          css={{
+            gridArea: "content",
+            maxWidth: "100vw",
+            "@media(min-width: 768px)": {
+              maxWidth: `${props => props.hasSidebar && "calc(100vw - 20%)"}`,
+              overflowX: "hidden",
+              maxHeight: "calc(100vh - 56px)",
+              overflowY: "auto",
+            },
+          }}
+        >
+          {children}
+        </div>
+      </Gridded>
     </React.Fragment>
   </ThemeProvider>
 )

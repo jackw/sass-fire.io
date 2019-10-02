@@ -7,6 +7,7 @@ import Link from "mineral-ui/Link"
 import Box from "mineral-ui/Box"
 import Layout from "../components/layout"
 import Container from "../components/container"
+import Footer from "../components/footer"
 
 const Code = ({ children }) => (
   <Box
@@ -38,6 +39,7 @@ export default () => (
         direction="column"
         css={css`
           height: calc(50vh - 56px);
+          margin: 50px 0;
         `}
       >
         <Box as="div" marginBottom="sm">
@@ -80,5 +82,6 @@ export default () => (
         .
       </Text>
     </Container>
+    <Footer as={FlexItem} />
   </Layout>
 )
