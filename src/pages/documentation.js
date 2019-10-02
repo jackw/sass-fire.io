@@ -1,25 +1,8 @@
 import React from "react"
 import { graphql } from "gatsby"
-import styled from "@emotion/styled"
 import Layout from "../components/layout"
+import Footer from "../components/footer"
 import DocBlock from "../components/DocBlock"
-import Sidebar from "../components/sidebar"
-
-const SideBarWrapper = styled.div`
-  background-color: white;
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  overflow-y: auto;
-  top: 56px;
-  width: 20%;
-`
-
-const DocsWrapper = styled.div`
-  background-color: ${props => props.theme.backgroundColor_theme_selected};
-  margin-left: 20%;
-  margin-top: 56px;
-`
 
 export const query = graphql`
   query {
@@ -66,11 +49,10 @@ export const query = graphql`
 `
 
 const Documentation = ({ data }) => (
-  <Layout title="Documentation">
-    <SideBarWrapper>
-      <Sidebar />
-    </SideBarWrapper>
-    <DocsWrapper>
+  <Layout title="Documentation" hasSidebar>
+    <div css={theme => ({
+      backgroundColor: theme.backgroundColor_active
+    })}>
       {data.allSassdocJson.nodes.map((sassDocNode, i) => (
         <>
           <div
@@ -83,7 +65,8 @@ const Documentation = ({ data }) => (
           <DocBlock sassDocNode={sassDocNode} key={sassDocNode.id} />
         </>
       ))}
-    </DocsWrapper>
+      <Footer />
+    </div>
   </Layout>
 )
 

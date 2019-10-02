@@ -3,7 +3,13 @@ import Container from "./container"
 import BuildTime from "./BuildTime"
 
 const Footer = () => (
-  <Container css={{ textAlign: "center", marginTop: '0.25em', marginBottom: '0.25em'}}>
+  <Container
+    css={theme => ({
+      textAlign: "center",
+      paddingTop: theme.space_inline_md,
+      paddingBottom: theme.space_inline_md,
+    })}
+  >
     <BuildTime />
   </Container>
 )
