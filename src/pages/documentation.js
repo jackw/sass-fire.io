@@ -6,7 +6,7 @@ import DocBlock from "../components/DocBlock"
 
 export const query = graphql`
   query {
-    allSassdocJson {
+    allSassdocJson(sort: { fields: context___name, order: ASC }) {
       nodes {
         file {
           name
