@@ -2,10 +2,20 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import Footer from "../components/footer"
+import Sidebar from "../components/sidebar"
 import DocBlock from "../components/DocBlock"
 
 const Documentation = ({ data }) => (
-  <Layout title="Documentation" hasSidebar>
+  <Layout
+    title="Documentation"
+    hasSidebar
+    renderSidebar={() => <Sidebar data={data.sassfireJson.sass_fire} />}
+  >
+    <div
+      css={theme => ({
+        backgroundColor: theme.backgroundColor_active,
+      })}
+    >
       {data.sassfireJson.sass_fire.map((sassDocNode, i) => (
         <React.Fragment key={`${sassDocNode.context.name.toLowerCase()}-${i}`}>
           <div
@@ -19,6 +29,8 @@ const Documentation = ({ data }) => (
           <DocBlock sassDocNode={sassDocNode} />
         </React.Fragment>
       ))}
+      <Footer />
+    </div>
   </Layout>
 )
 

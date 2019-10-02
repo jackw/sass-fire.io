@@ -18,8 +18,7 @@ const Gridded = styled.div`
     props.hasSidebar ? `"header" "sidebar" "content"` : `"header" "content"`};
   height: 100%;
   @media (min-width: 768px) {
-    grid-template-columns: ${props =>
-      props.hasSidebar && "25% 1fr"};
+    grid-template-columns: ${props => props.hasSidebar && "25% 1fr"};
     grid-template-areas: ${props =>
       props.hasSidebar
         ? `"header header" "sidebar content"`
@@ -27,7 +26,7 @@ const Gridded = styled.div`
   }
 `
 
-export default ({ title, children, hasSidebar }) => (
+export default ({ title, children, hasSidebar, renderSidebar }) => (
   <ThemeProvider theme={myTheme}>
     <>
       <SEO title={title} />
@@ -58,7 +57,7 @@ export default ({ title, children, hasSidebar }) => (
               },
             }}
           >
-            <Sidebar />
+            {renderSidebar()}
           </div>
         )}
         <div
@@ -76,6 +75,6 @@ export default ({ title, children, hasSidebar }) => (
           {children}
         </div>
       </Gridded>
-    </React.Fragment>
+    </>
   </ThemeProvider>
 )
