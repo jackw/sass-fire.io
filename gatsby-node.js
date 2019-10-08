@@ -49,12 +49,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         toPath: `/documentation`,
       })
     } else {
-      console.log(`/documentation/${version.node.parent.name}`)
       createPage({
         path: `/documentation/${version.node.parent.name}`,
         component: Template,
         context: {
           id: version.node.id,
+          currentVersion: version.node.parent.name,
         },
       })
     }

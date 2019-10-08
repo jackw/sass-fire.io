@@ -9,7 +9,9 @@ const Documentation = ({ data }) => (
   <Layout
     title="Documentation"
     hasSidebar
+    hasDocSelector
     renderSidebar={() => <Sidebar data={data.sassfireJson.sass_fire} />}
+    currentVersion={data.sassfireJson.parent.name}
   >
     <div
       css={theme => ({

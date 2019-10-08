@@ -26,7 +26,14 @@ const Gridded = styled.div`
   }
 `
 
-export default ({ title, children, hasSidebar, renderSidebar }) => (
+export default ({
+  title,
+  children,
+  hasSidebar,
+  hasDocSelector,
+  renderSidebar,
+  currentVersion,
+}) => (
   <ThemeProvider theme={myTheme}>
     <>
       <SEO title={title} />
@@ -45,7 +52,7 @@ export default ({ title, children, hasSidebar, renderSidebar }) => (
       />
       <Gridded hasSidebar={hasSidebar}>
         <div css={{ gridArea: "header" }}>
-          <Header />
+          <Header currentVersion={currentVersion} hasDocSelector={hasDocSelector} />
         </div>
         {hasSidebar && (
           <div
@@ -62,6 +69,8 @@ export default ({ title, children, hasSidebar, renderSidebar }) => (
         )}
         <div
           css={{
+            display: "flex",
+            flexDirection: "column",
             gridArea: "content",
             maxWidth: "100vw",
             "@media(min-width: 768px)": {
