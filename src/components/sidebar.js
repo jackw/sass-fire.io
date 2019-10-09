@@ -37,24 +37,9 @@ const MenuItem = styled(Box)(({ theme }) => ({
   },
 }))
 
-const query = graphql`
-  query {
-    allSassdocJson(sort: { fields: context___name, order: ASC }) {
-      nodes {
-        group
-        context {
-          name
-        }
-        id
-      }
-    }
-  }
-`
-
-const Sidebar = () => {
-  const data = useStaticQuery(query)
-  const allItems = data.allSassdocJson.nodes
-  const [items, setItems] = useState(data.allSassdocJson.nodes)
+const Sidebar = ({ data }) => {
+  const allItems = data
+  const [items, setItems] = useState(data)
 
   const filterResults = e => {
     const filtered = allItems.filter(item => {
@@ -96,7 +81,7 @@ const Sidebar = () => {
             padding="md"
             as="a"
             href={`#${menuItem.context.name.toLowerCase()}`}
-            key={menuItem.id}
+            key={menuItem.context.name}
           >
             <StartEnd>
               <FlexItem>

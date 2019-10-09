@@ -21,7 +21,6 @@ export const groupData = data => {
   return grouped.reduce((acc, val) => {
     const menuItems = val[1].map(obj => ({
       href: `#${obj.context.name.toLowerCase()}`,
-      id: obj.id,
       name: obj.context.name,
     }))
 

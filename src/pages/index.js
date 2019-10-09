@@ -21,7 +21,7 @@ const Code = ({ children }) => (
       noMargins
       as="pre"
       css={theme => ({
-        color: theme.color_theme,
+        color: theme.color_theme_active,
         fontFamily: theme.fontFamily_monospace,
       })}
     >
@@ -32,15 +32,22 @@ const Code = ({ children }) => (
 
 export default () => (
   <Layout title="🔥">
-    <Container as={FlexItem} grow={1}>
+    <Container
+      as={FlexItem}
+      grow={1}
+      css={css`
+        margin-top: 56px;
+      `}
+    >
       <Flex
         alignItems="center"
         justifyContent="center"
         direction="column"
-        css={css`
-          height: calc(50vh - 56px);
-          margin: 50px 0;
-        `}
+        css={theme => ({
+          minHeight: "calc(50vh - 56px)",
+          marginTop: theme.space_stack_xxl,
+          marginBottom: theme.space_stack_xxl,
+        })}
       >
         <Box as="div" marginBottom="sm">
           <Flex
@@ -70,9 +77,9 @@ export default () => (
       <Text as="h1">A functional library for Sass developers</Text>
       <Text as="h2">Installation</Text>
       <Text>To install with node:</Text>
-      <Code>npm install @jackw/sass-fire</Code>
+      <Code>npm install sass-fire</Code>
       <Text>To install with yarn:</Text>
-      <Code>yarn add @jackw/sass-fire</Code>
+      <Code>yarn add sass-fire</Code>
       <Text as="h2">Documentation</Text>
       <Text>
         Please review the{" "}
