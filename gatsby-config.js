@@ -4,6 +4,7 @@ module.exports = {
     description: `Give your sass a little flame with some functional functions`,
     author: `@jackwestbrook`,
   },
+  pathPrefix: "/sass-fire.io",
   plugins: [
     "gatsby-plugin-emotion",
     `gatsby-plugin-react-helmet`,
