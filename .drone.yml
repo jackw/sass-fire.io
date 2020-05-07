@@ -21,9 +21,6 @@ steps:
       - git config --global user.email "73201+jackw@users.noreply.github.com"
       - git config --global user.name "jackw"
       - yarn deploy
-    when:
-      branch: master
-      event: push
 
   - name: commit data
     image: node
@@ -34,8 +31,5 @@ steps:
       - git config --global user.email "73201+jackw@users.noreply.github.com"
       - git config --global user.name "jackw"
       - git add src/data/sassfire
-      - git diff-index --quiet HEAD || git commit -m "ci - add latest json"
+      - git commit -m "ci - add latest json"
       - git push
-    when:
-      branch: master
-      event: push
