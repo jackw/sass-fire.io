@@ -6,7 +6,18 @@ steps:
     image: node
     commands:
       - yarn
-  - name: test
+
+  - name: document
     image: node
     commands:
-      - yarn test
+      - yarn document
+
+  - name: deploy
+    image: node
+    environment:
+      GH_TOKEN:
+        from_secret: GH_TOKEN
+    commands:
+      - git config --global user.email "73201+jackw@users.noreply.github.com"
+      - git config --global user.name "jackw"
+      - yarn deploy
