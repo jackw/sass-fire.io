@@ -33,6 +33,5 @@ steps:
       - git config --global credential.helper store
       - echo "https://$GH_TOKEN:x-oauth-basic@github.com" > $HOME\.git-credentials
       - git add src/data/sassfire
-      - git remote -v
-      # - git diff-index --quiet HEAD || git commit -m "ci(publish) - add latest json"
-      # - git push
+      - git diff-index --quiet HEAD || git commit -m "ci(publish) - add latest json"
+      - git push --set-upstream origin master
