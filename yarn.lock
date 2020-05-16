@@ -11081,7 +11081,7 @@ sass-convert@^0.5.0:
     through2 "^2.0.0"
     which "^1.0.5"
 
-sass-fire@latest:
+sass-fire@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/sass-fire/-/sass-fire-1.0.0.tgz#44cae7654b39e8d88d133591baa73be382e7e9eb"
   integrity sha512-g5Lug0ZpzUB4Xq+W7zIagsVg3GWWFxcoROxRhmPmd268ShHAYbM/WgdRj4abozz4hkiEJoc4oLb/+7dzm4jlPQ==

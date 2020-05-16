@@ -5,7 +5,8 @@ steps:
   - name: install dependencies
     image: node
     commands:
-      - yarn
+      - yarn install
+      - yarn upgrade sass-fire --latest
 
   - name: document
     image: node
@@ -32,6 +33,6 @@ steps:
       - git config --global user.name "jackw"
       - git config --global credential.helper store
       - echo "https://$GH_TOKEN:x-oauth-basic@github.com" > $HOME\.git-credentials
-      - git add src/data/sassfire
+      - git add .
       - git diff-index --quiet HEAD || git commit -m "ci(docs) - add latest json data [ci skip]"
       - git push --set-upstream origin master
