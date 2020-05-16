@@ -35,6 +35,7 @@ steps:
       - echo "https://$GH_TOKEN:x-oauth-basic@github.com" > $HOME\.git-credentials
       - git status
       - git remote show origin
+      - git remote -v
       # - git add .
       # - git diff-index --quiet HEAD || git commit -m "ci(docs) - add latest json data [ci skip]"
       # - git push --set-upstream origin master
