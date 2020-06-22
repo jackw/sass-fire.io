@@ -11081,10 +11081,10 @@ sass-convert@^0.5.0:
     through2 "^2.0.0"
     which "^1.0.5"
 
-sass-fire@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/sass-fire/-/sass-fire-1.0.0.tgz#44cae7654b39e8d88d133591baa73be382e7e9eb"
-  integrity sha512-g5Lug0ZpzUB4Xq+W7zIagsVg3GWWFxcoROxRhmPmd268ShHAYbM/WgdRj4abozz4hkiEJoc4oLb/+7dzm4jlPQ==
+sass-fire@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/sass-fire/-/sass-fire-1.0.1.tgz#5762ea267e0c4e9003fcec3c580934b5448da414"
+  integrity sha512-VbDM4TPkwoHAAFPkcRMHwbw0tTdwhC494NL7B2W3/8WJwSR/CB+ctGPcvCOYc4hTRaFfapVdmVpBCwT5MRQv9A==
 
 sassdoc-extras@^2.5.0:
   version "2.5.1"
