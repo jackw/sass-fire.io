@@ -31,7 +31,7 @@ const Code = ({ children }) => (
 )
 
 const webPackInstall = `// webpack.config.js
-const sassFire = require('sass-fire');
+const sassFire = require("sass-fire");
 
 module.exports = {
 	...
