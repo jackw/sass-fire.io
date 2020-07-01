@@ -30,6 +30,28 @@ const Code = ({ children }) => (
   </Box>
 )
 
+const webPackInstall = `// webpack.config.js
+const sassFire = require('sass-fire');
+
+module.exports = {
+	...
+    module: {
+        rules: [{
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader"
+            }, {
+                loader: "css-loader"
+            }, {
+                loader: "sass-loader",
+                options: {
+                    includePaths: sassFire
+                }
+            }]
+        }]
+    }
+};`;
+
 export default () => (
   <Layout title="🔥">
     <Container
@@ -44,7 +66,7 @@ export default () => (
         justifyContent="center"
         direction="column"
         css={theme => ({
-          minHeight: "calc(50vh - 56px)",
+          minHeight: "calc(35vh - 56px)",
           marginTop: theme.space_stack_xxl,
           marginBottom: theme.space_stack_xxl,
         })}
@@ -74,12 +96,18 @@ export default () => (
           </Flex>
         </Box>
       </Flex>
-      <Text as="h1">A functional library for Sass developers</Text>
+      <Text as="h1">A utility library for Sass developers</Text>
       <Text as="h2">Installation</Text>
       <Text>To install with node:</Text>
       <Code>npm install sass-fire</Code>
       <Text>To install with yarn:</Text>
       <Code>yarn add sass-fire</Code>
+      <Text as="h3">Add to build tools</Text>
+      <Code>
+        {webPackInstall}
+      </Code>
+      <Text>Then @import the package where you require it in your sass files.</Text>
+      <Code>@import 'sass-fire';</Code>
       <Text as="h2">Documentation</Text>
       <Text>
         Please review the{" "}
