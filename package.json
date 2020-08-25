@@ -30,7 +30,7 @@
   "devDependencies": {
     "gh-pages": "^2.1.1",
     "prettier": "^1.18.2",
-    "sass-fire": "1.1.0",
+    "sass-fire": "latest",
     "sassdoc": "^2.7.1"
   },
   "keywords": [
